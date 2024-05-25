@@ -13,7 +13,7 @@ services:
     depends_on:
       - db
     environment:
-      DATABASE_URL: postgresql://admin:admin123@postgres:5432/shopping_list_db?schema=public
+      DATABASE_URL: postgresql://admin:admin123@db:5432/shopping_list_db?schema=public
     networks:
       - app-network
 
@@ -49,3 +49,4 @@ volumes:
 
 networks:
   app-network:
+    external: true
