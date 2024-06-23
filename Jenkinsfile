@@ -1,5 +1,5 @@
 pipeline {
-    agent { label 'host' } // Usar el nodo configurado con la etiqueta 'host'
+    agent any
 
     environment {
         POSTGRES_CONTAINER = 'postgres:latest'
