@@ -57,16 +57,4 @@ pipeline {
             }
         }
     }
-
-    post {
-        always {
-            script {
-                // Optionally, clean up the containers after the job completes
-                // sh 'docker stop postgres-container || true'
-                // sh 'docker rm postgres-container || true'
-                // sh 'docker stop pgadmin-container || true'
-                // sh 'docker rm pgadmin-container || true'
-            }
-        }
-    }
 }
