@@ -16,14 +16,14 @@ pipeline {
             steps {
                 script {
                     // Pull the latest PostgreSQL container
-                    bat 'docker pull %POSTGRES_CONTAINER%'
+                    sh 'docker pull %POSTGRES_CONTAINER%'
 
                     // Stop and remove any existing PostgreSQL container
-                    bat 'docker stop postgres-container || true'
-                    bat 'docker rm postgres-container || true'
+                    sh 'docker stop postgres-container || true'
+                    sh 'docker rm postgres-container || true'
 
                     // Start a new PostgreSQL container
-                    bat """
+                    sh """
                     docker run -d --name postgres-container ^
                         -e POSTGRES_DB=%POSTGRES_DB% ^
                         -e POSTGRES_USER=%POSTGRES_USER% ^
@@ -39,14 +39,14 @@ pipeline {
             steps {
                 script {
                     // Pull the latest pgAdmin container
-                    bat 'docker pull %PGADMIN_CONTAINER%'
+                    sh 'docker pull %PGADMIN_CONTAINER%'
 
                     // Stop and remove any existing pgAdmin container
-                    bat 'docker stop pgadmin-container || true'
-                    bat 'docker rm pgadmin-container || true'
+                    sh 'docker stop pgadmin-container || true'
+                    sh 'docker rm pgadmin-container || true'
 
                     // Start a new pgAdmin container
-                    bat """
+                    sh """
                     docker run -d --name pgadmin-container ^
                         -e PGADMIN_DEFAULT_EMAIL=%PGADMIN_DEFAULT_EMAIL% ^
                         -e PGADMIN_DEFAULT_PASSWORD=%PGADMIN_DEFAULT_PASSWORD% ^
