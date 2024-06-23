@@ -12,9 +12,12 @@ pipeline {
     }
 
     stages {
-        stage('Start PostgreSQL Container') {
+        stage('Download and Start PostgreSQL Container') {
             steps {
                 script {
+                    // Pull the latest PostgreSQL container
+                    sh 'docker pull ${POSTGRES_CONTAINER}'
+                    
                     // Stop and remove any existing PostgreSQL container
                     sh 'docker stop postgres-container || true'
                     sh 'docker rm postgres-container || true'
@@ -32,9 +35,12 @@ pipeline {
             }
         }
         
-        stage('Start pgAdmin Container') {
+        stage('Download and Start pgAdmin Container') {
             steps {
                 script {
+                    // Pull the latest pgAdmin container
+                    sh 'docker pull ${PGADMIN_CONTAINER}'
+                    
                     // Stop and remove any existing pgAdmin container
                     sh 'docker stop pgadmin-container || true'
                     sh 'docker rm pgadmin-container || true'
@@ -52,4 +58,15 @@ pipeline {
         }
     }
 
+    post {
+        always {
+            script {
+                // Optionally, clean up the containers after the job completes
+                // sh 'docker stop postgres-container || true'
+                // sh 'docker rm postgres-container || true'
+                // sh 'docker stop pgadmin-container || true'
+                // sh 'docker rm pgadmin-container || true'
+            }
+        }
+    }
 }
