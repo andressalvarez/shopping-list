@@ -60,7 +60,7 @@ pipeline {
             //     sh 'docker rm postgres-container || true'
             //     sh 'docker stop pgadmin-container || true'
             //     sh 'docker rm pgadmin-container || true'
-            // }
+            }
         }
     }
 }
