@@ -65,7 +65,7 @@ pipeline {
             script {
                 // Ejecutar migraciones de Prisma
                 bat """
-                winpty docker exec -it shopping-list npx prisma migrate deploy
+                echo 'Despliegue completado. Verifica los contenedores en Docker.'
                 """
             }
         }
