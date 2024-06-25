@@ -62,10 +62,10 @@ pipeline {
 
     post {
         always {
-            // Limpiar recursos al finalizar
             script {
+                // Ejecutar migraciones de Prisma
                 bat """
-                docker-compose -f docker-compose.yml down
+                docker exec -it app-container npx prisma migrate deploy
                 """
             }
         }
