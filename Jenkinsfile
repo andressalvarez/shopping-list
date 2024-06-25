@@ -4,6 +4,7 @@ pipeline {
     environment {
         POSTGRES_CONTAINER = 'postgres:latest'
         PGADMIN_CONTAINER = 'dpage/pgadmin4:latest'
+        PGADMIN_PORT = '8080'
         POSTGRES_DB = 'shopping_list_db'
         POSTGRES_USER = 'admin'
         POSTGRES_PASSWORD = 'admin123'
@@ -37,26 +38,24 @@ pipeline {
             }
         }
 
-        stage('Download and Start pgAdmin Container') {
+       stage('Download and Start pgAdmin Container') {
             steps {
                 script {
                     // Pull the latest pgAdmin container
-                    bat 'docker pull %PGADMIN_CONTAINER%'
+                    bat "docker pull ${env.PGADMIN_CONTAINER}"
 
                     // Stop and remove any existing pgAdmin container
-                    bat '''
-                    docker stop pgadmin-container || exit 0
-                    docker rm pgadmin-container || exit 0
-                    '''
+                    bat "docker stop pgadmin-container || true"
+                    bat "docker rm pgadmin-container || true"
 
                     // Start a new pgAdmin container
-                    bat '''
+                    bat """
                     docker run -d --name pgadmin-container ^
-                        -e PGADMIN_DEFAULT_EMAIL=%PGADMIN_DEFAULT_EMAIL% ^
-                        -e PGADMIN_DEFAULT_PASSWORD=%PGADMIN_DEFAULT_PASSWORD% ^
-                        -p 80:80 ^
-                        %PGADMIN_CONTAINER%
-                    '''
+                        -e PGADMIN_DEFAULT_EMAIL=${env.PGADMIN_DEFAULT_EMAIL} ^
+                        -e PGADMIN_DEFAULT_PASSWORD=${env.PGADMIN_DEFAULT_PASSWORD} ^
+                        -p ${env.PGADMIN_PORT}:80 ^
+                        ${env.PGADMIN_CONTAINER}
+                    """
                 }
             }
         }
