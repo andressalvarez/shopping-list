@@ -19,18 +19,20 @@ pipeline {
                     bat 'docker pull %POSTGRES_CONTAINER%'
 
                     // Stop and remove any existing PostgreSQL container
-                    bat 'docker stop postgres-container || true'
-                    bat 'docker rm postgres-container || true'
+                    bat '''
+                    docker stop postgres-container || exit 0
+                    docker rm postgres-container || exit 0
+                    '''
 
                     // Start a new PostgreSQL container
-                    bat """
+                    bat '''
                     docker run -d --name postgres-container ^
                         -e POSTGRES_DB=%POSTGRES_DB% ^
                         -e POSTGRES_USER=%POSTGRES_USER% ^
                         -e POSTGRES_PASSWORD=%POSTGRES_PASSWORD% ^
                         -p 5432:5432 ^
                         %POSTGRES_CONTAINER%
-                    """
+                    '''
                 }
             }
         }
@@ -42,17 +44,19 @@ pipeline {
                     bat 'docker pull %PGADMIN_CONTAINER%'
 
                     // Stop and remove any existing pgAdmin container
-                    bat 'docker stop pgadmin-container || true'
-                    bat 'docker rm pgadmin-container || true'
+                    bat '''
+                    docker stop pgadmin-container || exit 0
+                    docker rm pgadmin-container || exit 0
+                    '''
 
                     // Start a new pgAdmin container
-                    bat """
+                    bat '''
                     docker run -d --name pgadmin-container ^
                         -e PGADMIN_DEFAULT_EMAIL=%PGADMIN_DEFAULT_EMAIL% ^
                         -e PGADMIN_DEFAULT_PASSWORD=%PGADMIN_DEFAULT_PASSWORD% ^
                         -p 80:80 ^
                         %PGADMIN_CONTAINER%
-                    """
+                    '''
                 }
             }
         }
