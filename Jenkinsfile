@@ -4,7 +4,7 @@ pipeline {
     environment {
         POSTGRES_CONTAINER = 'postgres:latest'
         PGADMIN_CONTAINER = 'dpage/pgadmin4:latest'
-        PGADMIN_PORT = '8080'
+        PGADMIN_PORT = '8081'
         POSTGRES_DB = 'shopping_list_db'
         POSTGRES_USER = 'admin'
         POSTGRES_PASSWORD = 'admin123'
