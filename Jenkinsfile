@@ -65,7 +65,7 @@ pipeline {
             script {
                 // Ejecutar migraciones de Prisma
                 bat """
-                docker exec -it app-container npx prisma migrate deploy
+                docker exec -it app-1 npx prisma migrate deploy
                 """
             }
         }
