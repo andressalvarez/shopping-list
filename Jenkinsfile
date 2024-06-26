@@ -3,6 +3,7 @@ pipeline {
 
     environment {
         DOCKER_NETWORK = 'sl-network'
+        DATABASE_URL = 'postgresql://admin:admin123@db:5432/shopping_list_db?schema=public'
     }
 
     stages {
@@ -40,7 +41,7 @@ pipeline {
         stage('Deploy App') {
             steps {
                 script {
-                    // Deploy App container
+                    // Deploy App container with DATABASE_URL environment variable
                     bat """
                     docker-compose -f docker-compose.yml up -d app
                     """
@@ -63,7 +64,7 @@ pipeline {
     post {
         always {
             script {
-                // Ejecutar migraciones de Prisma
+                // Mensaje de despliegue completado
                 bat """
                 echo 'Despliegue completado. Verifica los contenedores en Docker.'
                 """
